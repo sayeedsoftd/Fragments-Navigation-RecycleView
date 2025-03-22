@@ -1,0 +1,94 @@
+ <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomnanigrationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/buttom_nev_items"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+res--new --android resource dorectory--(menue)_--right click --new --menue resource file (write all)***************
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/home"/>
+    <item
+        android:id="@+id/notification"
+        android:title="Notification"
+        android:icon="@drawable/notification"/>
+    <item
+        android:id="@+id/profile"
+        android:title="Profile"
+        android:icon="@drawable/profile"/>
+    <item
+        android:id="@+id/about"
+        android:title="About"
+        android:icon="@drawable/about"/>
+</menu>
+
+
+
+
+package com.example.nevigration_bar;
+
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+
+public class MainActivity extends AppCompatActivity {
+    BottomNavigationView bottomnanigrationView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        bottomnanigrationView=findViewById(R.id.bottomnanigrationView);
+
+
+        bottomnanigrationView.getOrCreateBadge(R.id.notification).setNumber(100);// This line use show notification
+
+//Use bottomnanigrationView onClickListener
+        bottomnanigrationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId()==R.id.home){
+                    Toast.makeText(getApplicationContext(), "Home selected", Toast.LENGTH_SHORT).show();
+                } else if (item.getItemId()==R.id.notification) {
+                    Toast.makeText(getApplicationContext(), "notification selected", Toast.LENGTH_SHORT).show();
+                }else if (item.getItemId()==R.id.profile) {
+                    Toast.makeText(getApplicationContext(), "profile selected", Toast.LENGTH_SHORT).show();
+                }else if (item.getItemId()==R.id.about) {
+                    Toast.makeText(getApplicationContext(), "about selected", Toast.LENGTH_SHORT).show();
+                }
+
+
+                return true;
+            }
+        });
+
+
+
+
+    }
+}
+
+
+
+
