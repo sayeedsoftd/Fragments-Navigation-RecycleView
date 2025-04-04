@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/design_default_color_secondary_variant">
+
+
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/burger"
+            android:scaleType="centerCrop"
+            />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Abu Sayeed"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"/>
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+package com.example.recycleview;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class MainActivity extends AppCompatActivity {
+    RecyclerView recyclerView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_main);
+
+
+        recyclerView=findViewById(R.id.recyclerView);
+
+
+        MyAdapter adapter= new MyAdapter();
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this,3));
+
+
+
+
+    }
+    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHoldre>
+    {
+        @NonNull
+        @Override
+        public MyviewHoldre onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.recycle, parent, false);
+
+
+            return new MyviewHoldre(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyviewHoldre holder, int position) {
+            holder.textView.setText("as"+position);
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return 20;
+        }
+
+        //-------------------MyviewHoldre---------------------
+
+        private class MyviewHoldre extends RecyclerView.ViewHolder{
+
+            ImageView imageView;
+            TextView textView;;
+
+            public MyviewHoldre(@NonNull View itemView) {
+                super(itemView);
+
+                imageView=itemView.findViewById(R.id.imageView);
+                textView=itemView.findViewById(R.id.textView);
+            }
+        } //-------------------MyviewHoldre---------------------
+
+    }
+
+}
